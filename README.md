@@ -176,6 +176,9 @@ require("oil").setup({
   delete_to_trash = false,
   -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
   skip_confirm_for_simple_edits = false,
+  -- When set, only deletes decide whether the confirmation popup is shown, overriding
+  -- skip_confirm_for_simple_edits (:help oil.skip_confirm_for_delete)
+  skip_confirm_for_delete = nil,
   -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
   -- (:help prompt_save_on_select_new_entry)
   prompt_save_on_select_new_entry = true,

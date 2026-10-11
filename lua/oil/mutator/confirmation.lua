@@ -41,6 +41,26 @@ local function is_simple_edit(actions)
   return true
 end
 
+---@param actions oil.Action[]
+---@return boolean
+local function has_delete(actions)
+  for _, action in ipairs(actions) do
+    if action.type == "delete" then
+      return true
+    end
+  end
+  return false
+end
+
+---@param actions oil.Action[]
+---@return boolean
+local function should_skip(actions)
+  if config.skip_confirm_for_delete ~= nil then
+    return config.skip_confirm_for_delete or not has_delete(actions)
+  end
+  return config.skip_confirm_for_simple_edits and is_simple_edit(actions)
+end
+
 ---@param winid integer
 ---@param bufnr integer
 ---@param lines string[]
@@ -63,7 +83,7 @@ M.show = vim.schedule_wrap(function(actions, should_confirm, cb)
     cb(true)
     return
   end
-  if should_confirm == nil and config.skip_confirm_for_simple_edits and is_simple_edit(actions) then
+  if should_confirm == nil and should_skip(actions) then
     cb(true)
     return
   end
