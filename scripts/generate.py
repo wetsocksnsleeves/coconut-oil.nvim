@@ -210,6 +210,16 @@ skip_confirm_for_simple_edits                  *oil.skip_confirm_for_simple_edit
         * contain at most one copy or move
         * contain at most five creates
 
+skip_confirm_for_delete                              *oil.skip_confirm_for_delete*
+    type: `nil|boolean` default: `nil`
+    When `nil`, the confirmation popup follows |oil.skip_confirm_for_simple_edits|.
+    When set, it overrides that option and only deletes decide whether the popup is
+    shown:
+        * operations with no deletes never show the popup
+        * operations with deletes show the popup when `false`, and skip it when `true`
+    Note that some cross-adapter moves are performed as a copy and a delete, so they
+    count as deletes.
+
 prompt_save_on_select_new_entry              *oil.prompt_save_on_select_new_entry*
     type: `boolean` default: `true`
     There are two cases where this option is relevant:
